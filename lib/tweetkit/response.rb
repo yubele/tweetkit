@@ -15,6 +15,7 @@ module Tweetkit
 
       def parse!(response, **options)
         parse_response response
+        extract_and_save_faraday_response(response)
         extract_and_save_tweets
         return unless @tweets
 
@@ -41,6 +42,10 @@ module Tweetkit
         end
       end
 
+      def extract_and_save_faraday_response(faraday_response)
+        @faraday_response = faraday_response
+      end
+      
       def extract_and_save_meta
         @meta = Meta.new(@response['meta'])
       end
